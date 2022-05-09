@@ -8,3 +8,21 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+async function loadAutomobiles() {
+  const response = await fetch('http://localhost:8100/api/automobiles/');
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data);
+    
+    root.render(
+      <React.StrictMode>
+        <App autos={data.autos} />
+      </React.StrictMode>
+    );
+    
+  } else {
+    console.error(response);
+  }
+}
+loadAutomobiles();
