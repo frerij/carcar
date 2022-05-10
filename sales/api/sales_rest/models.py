@@ -9,7 +9,7 @@ class Customer(models.Model):
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=90)
-    employee_number = CharField(max_length=90)
+    employee_number = models.CharField(max_length=90)
 
 
 class ManufacturerVO(models.Model):
