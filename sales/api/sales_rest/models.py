@@ -5,7 +5,7 @@ from django.urls import reverse
 class Customer(models.Model):
     name = models.CharField(max_length=90)
     address = models.CharField(max_length=90)
-    phone_number = models.CharField(max_length=11)
+    phone_number = models.CharField(max_length=15)
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=90)
