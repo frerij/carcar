@@ -1,7 +1,6 @@
 from django.db import models
 from pkg_resources import parse_requirements
 
-from inventory.api.inventory_rest.models import VehicleModel
 
 # Create your models here.
 

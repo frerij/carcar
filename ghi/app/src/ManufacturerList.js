@@ -16,7 +16,6 @@ class ManufacturerList extends React.Component {
       this.setState({
         manufacturers: data.manufacturers,
       });
-      console.log(data);
     } else {
       console.error(response);
     }
