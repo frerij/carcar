@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-class ManufacturerForm extends React.Component {
+class ManufacturerForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
