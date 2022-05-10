@@ -20,6 +20,7 @@ function App(props) {
             <Route path="" element={<AutomobileList autos={props.autos} />} />
             <Route path="new" element={<AutomobileForm/>} />
           </Route>
+
           <Route path="/api/manufacturers" element={<ManufacturerForm />} />
 
         </Routes>
