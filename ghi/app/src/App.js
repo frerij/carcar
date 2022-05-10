@@ -6,7 +6,7 @@ import AutomobileList from './AutomobileList';
 import AutomobileForm from './AutomobileForm';
 
 function App(props) {
-  if (props.autos === undefined) {
+  if (props === undefined) {
     return null;
   }
   return (
