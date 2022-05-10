@@ -5,6 +5,7 @@ import ManufacturerList from "./ManufacturerList";
 import Nav from "./Nav";
 import AutomobileList from "./AutomobileList";
 import AutomobileForm from "./AutomobileForm";
+import VehicleList from "./VehicleList";
 
 function App(props) {
   if (props === undefined) {
@@ -18,11 +19,14 @@ function App(props) {
           <Route path="/" element={<MainPage />} />
           <Route path="/manufacturers/" element={<ManufacturerList />} />
           <Route path="/manufacturers/new" element={<ManufacturerForm />} />
-          <Route path="/api/automobiles/">
-            <Route path="" element={<AutomobileList autos={props.autos} />} />
+          <Route path="automobiles/">
+            <Route path="" element={<AutomobileList />} />
             <Route path="new" element={<AutomobileForm />} />
           </Route>
-
+          <Route path="models/">
+            <Route path="" element={<VehicleList />} />
+            <Route path="new" element={<AutomobileForm />} />
+          </Route>
           <Route path="/api/manufacturers" element={<ManufacturerForm />} />
         </Routes>
       </div>
