@@ -29,8 +29,9 @@ class VehicleForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
+    delete data.manufacturers;
 
-    const vehicleUrl = "http://localhost:8100/models";
+    const vehicleUrl = "http://localhost:8100/api/models/";
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -38,6 +39,7 @@ class VehicleForm extends Component {
         "Content-Type": "application/json",
       },
     };
+
     const response = await fetch(vehicleUrl, fetchConfig);
     if (response.ok) {
       const newVehicle = await response.json();
@@ -92,7 +94,7 @@ class VehicleForm extends Component {
                   value={this.state.picture_url}
                   className="form-control"
                   id="picture_url"
-                  name="picture_url"
+                  placeholder="Picture url"
                 ></textarea>
               </div>
               <div className="mb-3">
