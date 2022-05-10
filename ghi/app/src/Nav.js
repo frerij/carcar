@@ -32,7 +32,7 @@ function Nav() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <NavLink className="navbar-brand" to="api/models/">
+        <NavLink className="navbar-brand" to="models/">
           Vehicles
         </NavLink>
         <button
