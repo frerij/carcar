@@ -6,6 +6,9 @@ import AutomobileList from "./AutomobileList";
 import ManufacturerList from "./ManufacturerList";
 
 function App(props) {
+  if (props === undefined) {
+    return null;
+  }
   return (
     <BrowserRouter>
       <Nav />
