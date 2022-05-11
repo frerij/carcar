@@ -48,6 +48,8 @@ class AutomobileVO(models.Model):
         on_delete=models.CASCADE,
     )
 
+    sold = models.BooleanField(default=False)
+
     def get_api_url(self):
         return reverse("api_automobile", kwargs={"vin": self.vin})
 

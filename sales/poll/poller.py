@@ -47,6 +47,7 @@ def get_automobile():
                 "year": auto["year"],
                 "vin": auto["vin"],
                 "model": VehicleModelVO.objects.get(import_href=auto["model"]["href"]),
+                "sold": auto["sold"],
             },
         )
 

@@ -11,6 +11,7 @@ class AutomobileVODetailEncoder(ModelEncoder):
         "year",
         "vin",
         "model",
+        "sold",
     ]
 class SalesPersonDetailEncoder(ModelEncoder):
     model = SalesPerson
