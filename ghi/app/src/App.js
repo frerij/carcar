@@ -7,6 +7,10 @@ import AutomobileList from "./AutomobileList";
 import AutomobileForm from "./AutomobileForm";
 import VehicleForm from "./VehicleForm";
 import VehicleList from "./VehicleList";
+import TechnicianForm from "./TechnicianForm";
+import TechnicianList from "./TechnicianList";
+import AppointmentForm from "./AppointmentForm";
+import AppointmentList from "./AppointmentList";
 
 function App(props) {
   if (props === undefined) {
@@ -29,6 +33,12 @@ function App(props) {
           <Route path="models/">
             <Route path="" element={<VehicleList />} />
             <Route path="new" element={<VehicleForm />} />
+          </Route>
+          <Route path="service/">
+            <Route path="technicians" element={<TechnicianList />} />
+            <Route path="technicians/new" element={<TechnicianForm />} />
+            <Route path="appointments" element={<AppointmentList />} />
+            <Route path="appointments/new" element={<AppointmentForm />} />
           </Route>
         </Routes>
       </div>
