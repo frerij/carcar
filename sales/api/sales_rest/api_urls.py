@@ -3,6 +3,7 @@ from django.urls import path
 from .api_views import (
     api_sales_person,
     api_customer,
+    api_sales,
 
 )
 
@@ -17,5 +18,9 @@ urlpatterns = [
         api_customer,
         name="api_customer",
     ),
-    
+    path(
+        "sales/",
+        api_sales,
+        name="api_sales",
+    )
 ]

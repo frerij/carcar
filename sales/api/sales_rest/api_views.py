@@ -1,25 +1,15 @@
 from django.shortcuts import render
 
-from common.json import ModelEncoder
-from .models import Customer, Sale, SalesPerson
+from .models import Customer, Sale, SalesPerson, AutomobileVO
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
 
-class SalesPersonEncoder(ModelEncoder):
-    model = SalesPerson
-    properties = [
-        "name",
-        "employee_number",
-    ]
-
-class CustomerEncoder(ModelEncoder):
-    model = Customer
-    properties = [
-        "name",
-        "address",
-        "phone_number",
-    ]
+from .encoders import (
+    SalesPersonDetailEncoder,
+    CustomerDetailEncoder,
+    SaleDetailEncoder,
+)
 
 @require_http_methods(["GET", "POST"])
 def api_sales_person(request):
@@ -27,7 +17,7 @@ def api_sales_person(request):
         salespeople = SalesPerson.objects.all()
         return JsonResponse(
             {"Sales_People": salespeople},
-            encoder=SalesPersonEncoder,
+            encoder=SalesPersonDetailEncoder,
         )
     else:
         try:
@@ -35,7 +25,7 @@ def api_sales_person(request):
             sales_person = SalesPerson.objects.create(**content)
             return JsonResponse(
                 sales_person,
-                encoder=SalesPersonEncoder,
+                encoder=SalesPersonDetailEncoder,
                 safe=False,
             )
             
@@ -52,7 +42,7 @@ def api_customer(request):
         customers = Customer.objects.all()
         return JsonResponse(
             {"Customers": customers},
-            encoder=CustomerEncoder,
+            encoder=CustomerDetailEncoder,
         )
     else:
         try:
@@ -60,13 +50,48 @@ def api_customer(request):
             customer = Customer.objects.create(**content)
             return JsonResponse(
                 customer,
-                encoder=CustomerEncoder,
+                encoder=CustomerDetailEncoder,
                 safe=False,
             )
             
         except:
             response = JsonResponse(
                 {"message": "Could not add customer"}
+            )
+            response.status_code = 400
+            return response
+
+@require_http_methods(["GET", "POST"])
+def api_sales(request):
+    if request.method == "GET":
+        sales = Sale.objects.all()
+        return JsonResponse(
+            {"Sales": sales},
+            encoder=SaleDetailEncoder,
+        )
+    else:
+        try:
+            content = json.loads(request.body)
+            try:
+                auto_href = content["automobile"]
+                automobile = AutomobileVO.objects.get(import_href=auto_href)
+                content["automobile"] = automobile
+            except AutomobileVO.DoesNotExist:
+                return JsonResponse(
+                {"message": "Invalid automobile id"},
+                status=400,
+            )
+
+            sale = Sale.objects.create(**content)
+            return JsonResponse(
+                sale,
+                encoder=SaleDetailEncoder,
+                safe=False,
+            )
+            
+        except:
+            response = JsonResponse(
+                {"message": "Could not add sale"}
             )
             response.status_code = 400
             return response
