@@ -74,4 +74,4 @@ class Sale(models.Model):
         on_delete=models.CASCADE
     )
 
-    sale_price = models.FloatField()
+    sales_price = models.FloatField()

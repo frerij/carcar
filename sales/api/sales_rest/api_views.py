@@ -16,7 +16,7 @@ def api_sales_person(request):
     if request.method == "GET":
         salespeople = SalesPerson.objects.all()
         return JsonResponse(
-            {"Sales_People": salespeople},
+            {"sales_people": salespeople},
             encoder=SalesPersonDetailEncoder,
         )
     else:
@@ -41,7 +41,7 @@ def api_customer(request):
     if request.method == "GET":
         customers = Customer.objects.all()
         return JsonResponse(
-            {"Customers": customers},
+            {"customers": customers},
             encoder=CustomerDetailEncoder,
         )
     else:
@@ -66,7 +66,7 @@ def api_sales(request):
     if request.method == "GET":
         sales = Sale.objects.all()
         return JsonResponse(
-            {"Sales": sales},
+            {"sales": sales},
             encoder=SaleDetailEncoder,
         )
     else:
@@ -76,6 +76,7 @@ def api_sales(request):
                 auto_href = content["automobile"]
                 automobile = AutomobileVO.objects.get(import_href=auto_href)
                 content["automobile"] = automobile
+                print("here is the content", content)
             except AutomobileVO.DoesNotExist:
                 return JsonResponse(
                 {"message": "Invalid automobile id"},
