@@ -130,8 +130,6 @@ def api_sales(request):
                 safe=False,
             )
 
-          
-            
             
         except Exception as e:
             print("this is the exception error msg", e)
