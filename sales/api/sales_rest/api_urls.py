@@ -4,7 +4,7 @@ from .api_views import (
     api_sales_person,
     api_customer,
     api_sales,
-
+    api_automobiles,
 )
 
 urlpatterns = [
@@ -22,5 +22,10 @@ urlpatterns = [
         "sales/",
         api_sales,
         name="api_sales",
+    ),
+    path(
+        "automobiles/",
+        api_automobiles,
+        name="api_automobiles",
     )
 ]

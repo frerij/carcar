@@ -5,23 +5,54 @@ class SalesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      sales_people: [],
       sales: [],
     };
+    this.handleSalesPersonChange = this.handleSalesPersonChange.bind(this);
+    this.handleSalesListChange = this.handleSalesListChange.bind(this);
   }
   
-  async componentDidMount() {
-      const response = await fetch('http://localhost:8090/api/sales/');
+
+  handleSalesPersonChange(event) {
+    const value = event.target.value;
+    this.setState({sales_person: value})
+  }
+
+  handleSalesListChange(event) {
+    const value = event.target.value;
+    this.setState({sales: value})
+  }
+  
+  async listSales(){
+    const response = await fetch('http://localhost:8090/api/sales/');
+
       if (response.ok) {
         const data = await response.json();
+
         this.setState({
           sales: data.sales,
         });
 
-        console.log(data);
         
       } else {
         console.error(response);
       }
+  }
+  
+  async getSalesPersonData() {
+    const url = "http://localhost:8090/api/salesperson";
+
+    const response = await fetch(url);
+    
+    if (response.ok) {
+        const data = await response.json();
+        this.setState({sales_people: data.sales_people});
+    }
+}
+
+  async componentDidMount() {
+      this.listSales()
+      this.getSalesPersonData()
   } 
       
   
@@ -50,11 +81,10 @@ class SalesList extends React.Component {
               </tr>
           </thead>
           <tbody>
-              {this.state.sales.filter(sale => sale.sales_person === employee).map(sale => {
+              {this.state.sales.filter(sale => sale.sales_person.employee_number === this.state.sales_person).map(sale => {
               return (
-                  <tr key={sale.id}>
+                  <tr key={sale.automobile.vin}>
                   <td>{ sale.sales_person.name }</td>
-                  <td>{ sale.sales_person.employee_number }</td>
                   <td>{ sale.customer.name }</td>
                   <td>{ sale.automobile.vin }</td>
                   <td>{ sale.sales_price }</td>

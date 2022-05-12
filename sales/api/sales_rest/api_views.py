@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Customer, Sale, SalesPerson, AutomobileVO
+from .models import Customer, Sale, SalesPerson, AutomobileVO, VehicleModelVO
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
@@ -9,7 +9,34 @@ from .encoders import (
     SalesPersonDetailEncoder,
     CustomerDetailEncoder,
     SaleDetailEncoder,
+    AutomobileVODetailEncoder
 )
+@require_http_methods(["GET", "POST"])
+def api_automobiles(request):
+    if request.method == "GET":
+        autos = AutomobileVO.objects.all()
+        return JsonResponse(
+            {"autos": autos},
+            encoder=AutomobileVODetailEncoder,
+        )
+    else:
+        try:
+            content = json.loads(request.body)
+            model_id = content["model_id"]
+            model = VehicleModelVO.objects.get(pk=model_id)
+            content["model"] = model
+            auto = AutomobileVO.objects.create(**content)
+            return JsonResponse(
+                auto,
+                encoder=AutomobileVODetailEncoder,
+                safe=False,
+            )
+        except:
+            response = JsonResponse(
+                {"message": "Could not create the automobile"}
+            )
+            response.status_code = 400
+            return response
 
 @require_http_methods(["GET", "POST"])
 def api_sales_person(request):
@@ -77,6 +104,9 @@ def api_sales(request):
                 auto_href = content["automobile"]
                 automobile = AutomobileVO.objects.get(import_href=auto_href)
                 content["automobile"] = automobile
+
+                automobile.sold = True
+                automobile.save()
 
                 customer_phone = content["customer"]
                 customer = Customer.objects.get(phone_number=customer_phone)

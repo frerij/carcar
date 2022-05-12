@@ -20,12 +20,9 @@ class SalesForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
-        console.log("this is the submit data", data)
         delete data.customers
         delete data.sales_people
         delete data.autos
-        
-        console.log(data);
 
         const salesUrl = 'http://localhost:8090/api/sales/';
         const fetchConfig = {
@@ -127,7 +124,7 @@ class SalesForm extends React.Component {
                   {this.state.autos.filter(auto => auto.sold === false).map(auto => {
                         return (
                         <option key={auto.vin} value={auto.href}>
-                            {auto.year}, {auto.color} {auto.name} 
+                            {auto.year}, {auto.color} {auto.model.name} 
                         </option>
                         );
                     })}
