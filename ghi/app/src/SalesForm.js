@@ -20,11 +20,10 @@ class SalesForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
-        
+        console.log("this is the submit data", data)
         delete data.customers
         delete data.sales_people
         delete data.autos
-
         
         console.log(data);
 
@@ -44,13 +43,15 @@ class SalesForm extends React.Component {
             const newSale = await response.json();
             
             const cleared = {
-                autos: [],
-                sales_people: [],
-                customers: [],
-                sales_price: '',
+              autos: [],
+              sales_people: [],
+              customers: [],
+              sales_price: '',
             };
 
             this.setState(cleared);
+            // window.location.reload(false);
+
           }
         }
 
@@ -137,7 +138,7 @@ class SalesForm extends React.Component {
                   <option value="">Choose a sales person</option>
                   {this.state.sales_people.map(sales_person => {
                         return (
-                        <option key={sales_person.employee_number} value={sales_person.name}>
+                        <option key={sales_person.employee_number} value={sales_person.employee_number}>
                             {sales_person.name}
                         </option>
                         );

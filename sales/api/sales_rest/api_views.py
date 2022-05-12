@@ -72,25 +72,39 @@ def api_sales(request):
     else:
         try:
             content = json.loads(request.body)
+            
             try:
                 auto_href = content["automobile"]
                 automobile = AutomobileVO.objects.get(import_href=auto_href)
                 content["automobile"] = automobile
-                print("here is the content", content)
-            except AutomobileVO.DoesNotExist:
+
+                customer_phone = content["customer"]
+                customer = Customer.objects.get(phone_number=customer_phone)
+                content["customer"] = customer
+                
+                sale_person_id = content["sales_person"]
+                salesPerson = SalesPerson.objects.get(employee_number=sale_person_id)
+                content["sales_person"] = salesPerson
+                
+            except:
                 return JsonResponse(
-                {"message": "Invalid automobile id"},
+                {"message": "Invalid request"},
                 status=400,
             )
-
+            
             sale = Sale.objects.create(**content)
+
             return JsonResponse(
                 sale,
                 encoder=SaleDetailEncoder,
                 safe=False,
             )
+
+          
             
-        except:
+            
+        except Exception as e:
+            print("this is the exception error msg", e)
             response = JsonResponse(
                 {"message": "Could not add sale"}
             )
