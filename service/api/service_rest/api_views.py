@@ -23,14 +23,13 @@ class AppointmentEncoder(ModelEncoder):
         "owner_name",
         "vin",
         "date",
-        "time",
         "reason",
-        "assigned_tech",
+        "technician",
         "is_vip",
         "is_finished",
     ]
     encoders = {
-        "assigned_tech": TechnicianListEncoder
+        "technician": TechnicianListEncoder()
     }
 
 class AutomobileEncoder(ModelEncoder):
@@ -94,32 +93,36 @@ def api_appointment(request):
     if request.method == "GET":
         appointments = Appointment.objects.all()
         return JsonResponse(
-            {"appointments": appointments},
-            encoder=AppointmentEncoder
+            {"appointment": appointments},
+            encoder=AppointmentEncoder,
         )
     else:
+        content = json.loads(request.body)
         try:
-            content = json.loads(request.body)
-
-            technician = Technician.objects.get(tech_num=content["technician"])
-            content["technician"] = technician
-
-            vin = AutomobileVO.objects.get(vin=content["vin"])
-            content["vin"] = vin
-
-            appointment = Appointment.objects.create(**content)
-            print(content)
+            print("content:", content)
+            tech_number = content["technician"]
+            technician = Technician.objects.get(tech_num=tech_number)
+            content["technician"] = technician 
+        except Technician.DoesNotExist:
             return JsonResponse(
-                appointment,
-                encoder=AppointmentEncoder,
-                safe=False,
+                {"message": "Invalid employee id"},
+                status = 400,
             )
-        except:
-            response = JsonResponse(
-                {"message": "Could not add an appointment"}
-            )
-            response.status_code = 400
-            return response
+        
+
+        vin_number = content["vin"]
+        if AutomobileVO.objects.filter(vin=vin_number).exists():
+            content["is_vip"] = True
+        else:
+            content["is_vip"] = False
+            print("Not VIP")
+
+        services = Appointment.objects.create(**content)
+        return JsonResponse(
+            services,
+            encoder = AppointmentEncoder,
+            safe=False,
+        )
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_detail_appointment(request, pk):
