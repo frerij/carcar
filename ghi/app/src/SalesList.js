@@ -36,7 +36,9 @@ class SalesList extends React.Component {
           <table className="table table-striped">
           <thead>
               <tr>
-              <th>Sales Person</th>
+              <th>
+                  <Link to="history">Sales Person</Link>
+                  </th>
               <th>Employee Number</th>
               <th>Purchaser</th>
               <th>VIN</th>
@@ -51,7 +53,7 @@ class SalesList extends React.Component {
                   <td>{ sale.sales_person.employee_number }</td>
                   <td>{ sale.customer.name }</td>
                   <td>{ sale.automobile.vin }</td>
-                  <td>{ sale.sales_price }</td>
+                  <td>${ sale.sales_price }</td>
                   </tr>
               );
               })}

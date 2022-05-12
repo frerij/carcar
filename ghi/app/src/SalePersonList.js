@@ -59,6 +59,8 @@ class SalesList extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <div className="container">
+          <h1>Sales Person History</h1>
             <select onChange={this.handleSalesPersonChange} value={this.state.sales_person} required id="sales_person" name="sales_person" className="form-select">
                   <option value="">Choose a sales person</option>
                   {this.state.sales_people.map(sales_person => {
@@ -69,8 +71,7 @@ class SalesList extends React.Component {
                         );
                     })}
             </select>
-      <div className="container">
-          <h1>All Sales</h1>
+      
           <table className="table table-striped">
           <thead>
               <tr>
@@ -87,7 +88,7 @@ class SalesList extends React.Component {
                   <td>{ sale.sales_person.name }</td>
                   <td>{ sale.customer.name }</td>
                   <td>{ sale.automobile.vin }</td>
-                  <td>{ sale.sales_price }</td>
+                  <td>${ sale.sales_price }</td>
                   </tr>
               );
               })}
