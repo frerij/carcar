@@ -44,11 +44,11 @@ class AppointmentHistoryList extends Component {
           <form onSubmit={this.handleSearchSubmit} id="vin-search-form">
             <div className="input-group">
               <input
-                onChange={this.handleChange}
                 value={this.state.search_key}
+                onChange={this.handleChange}
                 type="search"
                 className="form-control rounded"
-                placeholder="Search"
+                placeholder="Enter vehicle identification number"
                 id="search_key"
                 aria-describedby="search-addon"
               />
@@ -84,6 +84,11 @@ class AppointmentHistoryList extends Component {
                 }
 
                 if (appointment.is_finished === false) {
+                  isFinished = "d-none";
+                }
+
+                if (appointment.vin === this.state.search_key) {
+                } else {
                   isFinished = "d-none";
                 }
 

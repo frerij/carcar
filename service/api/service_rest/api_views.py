@@ -99,7 +99,6 @@ def api_appointment(request):
     else:
         content = json.loads(request.body)
         try:
-            print("content:", content)
             tech_number = content["technician"]
             technician = Technician.objects.get(tech_num=tech_number)
             content["technician"] = technician 
@@ -108,7 +107,6 @@ def api_appointment(request):
                 {"message": "Invalid employee id"},
                 status = 400,
             )
-        
 
         vin_number = content["vin"]
         if AutomobileVO.objects.filter(vin=vin_number).exists():
@@ -124,18 +122,21 @@ def api_appointment(request):
             safe=False,
         )
 
-@require_http_methods(["PUT", "DELETE"])
+@require_http_methods(["DELETE", "PUT"])
 def api_detail_appointment(request, pk):
-    if request.method == "PUT":
+    if request.method == "DELETE":
+        count, _ = Appointment.objects.filter(id=pk).delete()
+        print("appointment deleted")
+        return JsonResponse({"deleted": count > 0})
+
+    else:
         content = json.loads(request.body)
         Appointment.objects.filter(id=pk).update(**content)
         appointment = Appointment.objects.get(id=pk)
+        print("Appointment updated")
         return JsonResponse(
             appointment,
             encoder=AppointmentEncoder,
             safe=False
         )
-
-    else:
-        count, _ = Appointment.objects.filter(id=pk).delete()
-        return JsonResponse({"deleted": count > 0})
+        
