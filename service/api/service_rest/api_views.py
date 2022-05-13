@@ -124,24 +124,18 @@ def api_appointment(request):
             safe=False,
         )
 
-@require_http_methods(["GET", "PUT", "DELETE"])
+@require_http_methods(["PUT", "DELETE"])
 def api_detail_appointment(request, pk):
-    if request.method == "GET":
-        try:
-            appointment = Appointment.objects.get(id=pk)
-            return JsonResponse(
-                appointment, 
-                encoder=AppointmentEncoder, 
-                safe=False
-            )
-            
-        except Appointment.DoesNotExist:    
-            response = JsonResponse(
-                {"message": "Not a valid appointment"}
-            )
-            response.status_code=404
-            return response
-    
+    if request.method == "PUT":
+        content = json.loads(request.body)
+        Appointment.objects.filter(id=pk).update(**content)
+        appointment = Appointment.objects.get(id=pk)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False
+        )
+
     else:
         count, _ = Appointment.objects.filter(id=pk).delete()
         return JsonResponse({"deleted": count > 0})

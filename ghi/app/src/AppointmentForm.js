@@ -4,11 +4,11 @@ class AppointmentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vin: "",
       owner_name: "",
+      vin: "",
       date: "",
-      technicians: [],
       reason: "",
+      technicians: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,9 +35,8 @@ class AppointmentForm extends React.Component {
     event.preventDefault();
     const data = { ...this.state };
     delete data.technicians;
-    console.log(data);
 
-    const serviceURL = "http://localhost:8080/api/appointments/";
+    const appointmentURL = "http://localhost:8080/api/appointments/";
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -45,20 +44,21 @@ class AppointmentForm extends React.Component {
         "Content-Type": "application/json",
       },
     };
-    const response = await fetch(serviceURL, fetchConfig);
+    const response = await fetch(appointmentURL, fetchConfig);
     if (response.ok) {
       const newAppointment = await response.json();
-      console.log(newAppointment);
+      //   console.log(newAppointment);
 
       const cleared = {
-        vin: "",
         owner_name: "",
+        vin: "",
         date: "",
-        technicians: [],
         reason: "",
+        technicians: [],
       };
       this.setState(cleared);
     }
+    window.location.reload();
   }
 
   render() {
@@ -67,7 +67,7 @@ class AppointmentForm extends React.Component {
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Create a new Appointment</h1>
-            <form onSubmit={this.handleSubmit} id="create-service-form">
+            <form onSubmit={this.handleSubmit} id="create-appointment-form">
               <div className="form-floating mb-3">
                 <input
                   onChange={this.handleChange}
@@ -135,7 +135,7 @@ class AppointmentForm extends React.Component {
                 />
                 <label htmlFor="reason">Reason</label>
               </div>
-              <button className="btn btn-primary">Create</button>
+              <button className="btn btn-primary">Create appointment</button>
             </form>
           </div>
         </div>
