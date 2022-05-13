@@ -25,7 +25,7 @@ class ManufacturerList extends React.Component {
     return (
       <>
         <div className="container">
-          <h2>Manufacturers</h2>
+          <h1>Manufacturers</h1>
           <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
             <Link
               to="new"
