@@ -15,6 +15,7 @@ import AppointmentList from "./AppointmentList";
 import SalesList from "./SalesList";
 import SalePersonList from "./SalePersonList";
 import SalePersonForm from "./SalePersonForm";
+import CustomerForm from "./CustomerForm";
 
 
 function App(props) {
@@ -44,6 +45,8 @@ function App(props) {
             <Route path="new" element={<SalesForm />} />
             <Route path="history" element={<SalePersonList />} />
             <Route path="person" element={<SalePersonForm />} />
+            <Route path="customer" element={<CustomerForm />} />
+           
           </Route>
           <Route path="service/">
             <Route path="technicians" element={<TechnicianList />} />

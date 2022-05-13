@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
-class SalePersonForm extends Component {
+class CustomerForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      employee_number: "",
+      address: "",
+      phone_number: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,7 +18,7 @@ class SalePersonForm extends Component {
     event.preventDefault();
     const data = { ...this.state };
 
-    const salesPersonUrl = "http://localhost:8090/api/salesperson/";
+    const customerUrl = "http://localhost:8090/api/customer/";
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -25,15 +26,16 @@ class SalePersonForm extends Component {
         "Content-Type": "application/json",
       },
     };
-    const response = await fetch(salesPersonUrl, fetchConfig);
+    const response = await fetch(customerUrl, fetchConfig);
     if (response.ok) {
-      const newSalesperson = await response.json();
+      const newCustomer = await response.json();
       this.setState({
         name: "",
-        employee_number: "",
+        address: "",
+        phone_number: "",
       });
     } else {
-      console.log("Salesperson not created");
+      console.log("customer not created");
     }
   }
 
@@ -47,8 +49,8 @@ class SalePersonForm extends Component {
   render() {
     return (
       <div className="shadow p-4 mt-4">
-        <h1>Add a new sales person</h1>
-        <form onSubmit={this.handleSubmit} id="create-salesperson-form">
+        <h1>Add a new customer</h1>
+        <form onSubmit={this.handleSubmit} id="create-customer-form">
           <div className="form-floating mb-3">
             <input
               onChange={this.handleChange}
@@ -64,14 +66,26 @@ class SalePersonForm extends Component {
           <div className="form-floating mb-3">
             <input
               onChange={this.handleChange}
-              value={this.state.employee_number}
-              placeholder="Employee Number"
+              value={this.state.address}
+              placeholder="Address"
               required
               type="text"
-              id="employee_number"
+              id="address"
               className="form-control"
             />
-            <label htmlFor="employee_number">Employee Number</label>
+            <label htmlFor="address">Address</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              onChange={this.handleChange}
+              value={this.state.phone_number}
+              placeholder="Phone Number"
+              required
+              type="text"
+              id="phone_number"
+              className="form-control"
+            />
+            <label htmlFor="phone_number">Phone Number</label>
           </div>
           <button className="btn btn-primary">Create</button>
         </form>
@@ -80,4 +94,4 @@ class SalePersonForm extends Component {
   }
 }
 
-export default SalePersonForm;
+export default CustomerForm;
