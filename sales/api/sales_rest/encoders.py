@@ -1,8 +1,27 @@
 from common.json import ModelEncoder
 
-from .models import SalesPerson, Customer, Sale, AutomobileVO
+from .models import SalesPerson, Customer, Sale, AutomobileVO, VehicleModelVO, ManufacturerVO
 
+class ManufacturerVODetailEncoder(ModelEncoder):
+    model = ManufacturerVO
+    properties = [
+        "import_href",
+        "name",
+    ]
 
+class VehicleVODetailEncoder(ModelEncoder):
+    model = VehicleModelVO
+    properties = [
+        "import_href",
+        "name",
+        "picture_url",
+        "manufacturer",
+    ]
+    encoders = {
+    "manufacturer": ManufacturerVODetailEncoder(),
+    }
+        
+    
 class AutomobileVODetailEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [
@@ -13,6 +32,11 @@ class AutomobileVODetailEncoder(ModelEncoder):
         "model",
         "sold",
     ]
+    encoders = {
+        "model": VehicleVODetailEncoder(),
+    }
+        
+    
 class SalesPersonDetailEncoder(ModelEncoder):
     model = SalesPerson
     properties = [
@@ -34,8 +58,10 @@ class SaleDetailEncoder(ModelEncoder):
         "automobile",
         "sales_person",
         "customer",
-        "sale_price"
+        "sales_price"
     ]
     encoders = {
-        "automobile": AutomobileVODetailEncoder,
+        "automobile": AutomobileVODetailEncoder(),
+        "sales_person": SalesPersonDetailEncoder(),
+        "customer": CustomerDetailEncoder(),
     }
