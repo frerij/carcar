@@ -52,7 +52,7 @@ class SalesForm extends React.Component {
 
             this.setState(cleared);
       
-            // window.location.reload(false);
+            window.location.reload();
 
           }
         }
@@ -134,8 +134,8 @@ class SalesForm extends React.Component {
     }
 
   render() {
-    // let combinedData = [...this.state.sold_cars, ...this.state.autos];
-    // console.log("this is the combinedData", combinedData)
+    const list_of_sold = []
+    this.state.sold_cars.map(automobiles => list_of_sold.push(automobiles.automobile.vin))
     return (
         <div className="row">
         <div className="offset-3 col-6">
@@ -145,11 +145,7 @@ class SalesForm extends React.Component {
               <div className="form-floating mb-3">
               <select onChange={this.handleAutomobileChange} value={this.state.auto} required id="auto" name="auto" className="form-select">
                   <option value="">Choose an Automobile</option>
-                  {/* function (this.state.autos, this.state.sold_cars)
-                        for auto in this.state.autos
-                          if auto in sold
-                              return auto ... */}
-                  {this.state.autos.map(auto => {
+                  {this.state.autos.filter(auto => (!(list_of_sold.includes(auto.vin)))).map(auto => {
                     return (
                       <option key={auto.vin} value={auto.href}>
                             {auto.year}, {auto.color} {auto.model.name} 

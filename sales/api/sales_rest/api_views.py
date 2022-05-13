@@ -105,9 +105,6 @@ def api_sales(request):
                 automobile = AutomobileVO.objects.get(import_href=auto_href)
                 content["automobile"] = automobile
 
-                automobile.sold = True
-                automobile.save()
-
                 customer_phone = content["customer"]
                 customer = Customer.objects.get(phone_number=customer_phone)
                 content["customer"] = customer
