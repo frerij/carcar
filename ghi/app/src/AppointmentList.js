@@ -38,6 +38,7 @@ class AppointmentList extends Component {
     super(props);
     this.state = {
       appointments: [],
+      sales: [],
     };
   }
 
@@ -62,6 +63,7 @@ class AppointmentList extends Component {
       this.setState({
         sales: data.sales,
       });
+      console.log("sales data:", data.sales);
     } else {
       console.error(response);
     }
@@ -73,6 +75,12 @@ class AppointmentList extends Component {
   }
 
   render() {
+    const list_of_sold = [];
+    console.log("state: ", this.state.sales);
+    this.state.sales.map((automobiles) =>
+      list_of_sold.push(automobiles.automobile.vin)
+    );
+
     return (
       <>
         <div className="container">
@@ -96,56 +104,111 @@ class AppointmentList extends Component {
               </tr>
             </thead>
             <tbody>
-              {(this.state.appointments || []).map((appointment) => {
-                let parsedDate = Date.parse(appointment.date);
-                const listDate = new Date(parsedDate);
+              {(this.state.appointments || [])
+                .filter((appointment) => list_of_sold.includes(appointment.vin))
+                .map((appointment) => {
+                  let parsedDate = Date.parse(appointment.date);
+                  const listDate = new Date(parsedDate);
 
-                let isVip = "";
-                let isFinished = "";
+                  let isFinished = "";
+                  let isVIP = "table-info";
 
-                if (appointment.is_vip === true) {
-                  isVip = "table-info";
-                }
+                  if (appointment.is_finished === true) {
+                    isFinished = "d-none";
+                  }
 
-                if (appointment.is_finished === true) {
-                  isFinished = "d-none";
-                }
+                  return (
+                    <tr
+                      key={appointment.id}
+                      className={`${isFinished} ${isVIP}`}
+                    >
+                      <td>{appointment.owner_name}</td>
+                      <td>{appointment.vin}</td>
+                      <td>
+                        {listDate.toLocaleString("en-US", {
+                          wekday: "long",
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })}
+                      </td>
+                      <td>{appointment.reason}</td>
+                      <td>{appointment.technician.tech_name}</td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={() => cancelAppointment(appointment.id)}
+                        >
+                          Cancel
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-outline-success"
+                          onClick={() => appointmentFinished(appointment.id)}
+                        >
+                          Finished
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              {(this.state.appointments || [])
+                .filter(
+                  (appointment) => !list_of_sold.includes(appointment.vin)
+                )
+                .map((appointment) => {
+                  let parsedDate = Date.parse(appointment.date);
+                  const listDate = new Date(parsedDate);
 
-                return (
-                  <tr key={appointment.id} className={isFinished}>
-                    <td className={isVip}>{appointment.owner_name}</td>
-                    <td>{appointment.vin}</td>
-                    <td>
-                      {listDate.toLocaleString("en-US", {
-                        wekday: "long",
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                      })}
-                    </td>
-                    <td>{appointment.reason}</td>
-                    <td>{appointment.technician.tech_name}</td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-outline-danger"
-                        onClick={() => cancelAppointment(appointment.id)}
-                      >
-                        Cancel
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-outline-success"
-                        onClick={() => appointmentFinished(appointment.id)}
-                      >
-                        Finished
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                  let isVip = "";
+                  let isFinished = "";
+
+                  if (appointment.is_vip === true) {
+                    isVip = "table-info";
+                  }
+
+                  if (appointment.is_finished === true) {
+                    isFinished = "d-none";
+                  }
+
+                  return (
+                    <tr key={appointment.id} className={isFinished}>
+                      <td className={isVip}>{appointment.owner_name}</td>
+                      <td>{appointment.vin}</td>
+                      <td>
+                        {listDate.toLocaleString("en-US", {
+                          wekday: "long",
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })}
+                      </td>
+                      <td>{appointment.reason}</td>
+                      <td>{appointment.technician.tech_name}</td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={() => cancelAppointment(appointment.id)}
+                        >
+                          Cancel
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-outline-success"
+                          onClick={() => appointmentFinished(appointment.id)}
+                        >
+                          Finished
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
