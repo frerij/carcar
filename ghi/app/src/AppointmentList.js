@@ -15,7 +15,7 @@ const cancelAppointment = async (id) => {
   if (response.ok) {
     console.log(response);
   }
-  //   window.location.reload();
+  window.location.reload();
 };
 
 // add finished function to update finished value
@@ -33,7 +33,7 @@ const appointmentFinished = async (id) => {
   if (response.ok) {
     console.log("Appointment marked as finished");
   }
-  //   window.location.reload();
+  window.location.reload();
 };
 class AppointmentList extends Component {
   constructor(props) {
