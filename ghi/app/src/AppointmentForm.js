@@ -135,6 +135,10 @@ class AppointmentForm extends React.Component {
                 />
                 <label htmlFor="reason">Reason</label>
               </div>
+              <div>
+                <input type="checkbox" id="is_vip" name="vip" />
+                <label for="is_vip">VIP Customer</label>
+              </div>
               <button className="btn btn-primary">Create appointment</button>
             </form>
           </div>

@@ -43,7 +43,7 @@ class AppointmentList extends Component {
     };
   }
 
-  async componentDidMount() {
+  async getAppointmentData() {
     const response = await fetch("http://localhost:8080/api/appointments/");
     if (response.ok) {
       const data = await response.json();
@@ -54,6 +54,24 @@ class AppointmentList extends Component {
     } else {
       console.error(response);
     }
+  }
+
+  async getSalesData() {
+    const response = await fetch("http://localhost:8090/api/sales/");
+    if (response.ok) {
+      const data = await response.json();
+      const sales = [];
+      this.setState({
+        sales: data.sales,
+      });
+    } else {
+      console.error(response);
+    }
+  }
+
+  async componentDidMount() {
+    this.getAppointmentData();
+    this.getSalesData();
   }
 
   render() {
@@ -77,6 +95,11 @@ class AppointmentList extends Component {
               </tr>
             </thead>
             <tbody>
+              {/* function(this.state.appointments, this.state.sales)
+                    for appointment in this.state.appointments
+                        if appointment.vin in sales
+                            return is_vip = true */}
+
               {(this.state.appointments || []).map((appointment) => {
                 // parsing through date to show formatted correctly
                 let parsedDate = Date.parse(appointment.date);
