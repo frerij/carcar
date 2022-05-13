@@ -52,6 +52,7 @@ class VehicleForm extends Component {
     } else {
       console.log("Vehicle not created");
     }
+    window.location.reload();
   }
 
   handleChangeName(event) {
