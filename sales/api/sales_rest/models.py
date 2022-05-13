@@ -4,11 +4,11 @@ from django.urls import reverse
 class Customer(models.Model):
     name = models.CharField(max_length=90)
     address = models.CharField(max_length=90)
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15, unique=True)
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=90)
-    employee_number = models.CharField(max_length=90)
+    employee_number = models.CharField(max_length=90, unique=True)
 
 
 class ManufacturerVO(models.Model):
