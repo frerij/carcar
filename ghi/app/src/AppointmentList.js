@@ -43,7 +43,7 @@ class AppointmentList extends Component {
     };
   }
 
-  async componentDidMount() {
+  async getAppointmentData() {
     const response = await fetch("http://localhost:8080/api/appointments/");
     if (response.ok) {
       const data = await response.json();
@@ -56,16 +56,37 @@ class AppointmentList extends Component {
     }
   }
 
+  async getSalesData() {
+    const response = await fetch("http://localhost:8090/api/sales/");
+    if (response.ok) {
+      const data = await response.json();
+      const sales = [];
+      this.setState({
+        sales: data.sales,
+      });
+    } else {
+      console.error(response);
+    }
+  }
+
+  async componentDidMount() {
+    this.getAppointmentData();
+    this.getSalesData();
+  }
+
   render() {
     return (
       <>
-        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">
-            Make a new appointment
-          </Link>
-        </div>
         <div className="container">
           <h1>Appointments</h1>
+          <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
+            <Link
+              to="new"
+              className="btn btn-outline-secondary btn-sm px-4 gap-3"
+            >
+              add appointment
+            </Link>
+          </div>
           <table className="table table-stripped">
             <thead>
               <tr>
@@ -77,6 +98,11 @@ class AppointmentList extends Component {
               </tr>
             </thead>
             <tbody>
+              {/* function(this.state.appointments, this.state.sales)
+                    for appointment in this.state.appointments
+                        if appointment.vin in sales
+                            return is_vip = true */}
+
               {(this.state.appointments || []).map((appointment) => {
                 // parsing through date to show formatted correctly
                 let parsedDate = Date.parse(appointment.date);
@@ -111,7 +137,7 @@ class AppointmentList extends Component {
                     <td>{appointment.technician.tech_name}</td>
                     <td>
                       <button
-                        className="btn btn-outline-danger"
+                        className="btn btn-sm btn-outline-danger"
                         onClick={() => cancelAppointment(appointment.id)}
                       >
                         Cancel
@@ -119,7 +145,7 @@ class AppointmentList extends Component {
                     </td>
                     <td>
                       <button
-                        className="btn btn-outline-success"
+                        className="btn btn-sm btn-outline-success"
                         onClick={() => appointmentFinished(appointment.id)}
                       >
                         Finished

@@ -17,15 +17,6 @@ class AppointmentHistoryList extends Component {
     this.setState(newState);
   }
 
-  //   async handleSearchSubmit(event) {
-  //     event.preventDefault();
-  //     const searchUrl = "http://localhost:3000/service/history";
-  //     const fetchConfig = {
-  //       method: "get",
-  //     };
-  //     const response = await fetch(searchUrl, fetchConfig);
-  //   }
-
   async componentDidMount() {
     const url = "http://localhost:8080/api/appointments/";
     const response = await fetch(url);
@@ -68,7 +59,6 @@ class AppointmentHistoryList extends Component {
             </thead>
             <tbody>
               {(this.state.appointments || []).map((appointment) => {
-                // parsing through date to show formatted correctly
                 let parsedDate = Date.parse(appointment.date);
                 const listDate = new Date(parsedDate);
 

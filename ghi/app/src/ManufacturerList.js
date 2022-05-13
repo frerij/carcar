@@ -24,16 +24,16 @@ class ManufacturerList extends React.Component {
   render() {
     return (
       <>
-        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <Link
-            to="/manufacturers/new"
-            className="btn btn-primary btn-lg px-4 gap-3"
-          >
-            Add a manufacturer
-          </Link>
-        </div>
         <div className="container">
           <h2>Manufacturers</h2>
+          <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
+            <Link
+              to="new"
+              className="btn btn-outline-secondary btn-sm px-4 gap-3"
+            >
+              add manufacturer
+            </Link>
+          </div>
           <div className="list">
             <div className="container">
               <table className="table table-striped">
