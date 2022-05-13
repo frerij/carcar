@@ -28,11 +28,13 @@ class VehicleList extends React.Component {
   render() {
     return (
       <React.Fragment>
-          <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">add new vehicle model</Link>
-          </div>
       <div className="container">
           <h1>Vehicle Models</h1>
+          <Link to="new">
+          <button type="button" className="btn btn-sm btn-outline-secondary">
+             add vehicle
+          </button>
+          </Link>
           <table className="table table-striped">
           <thead>
               <tr>

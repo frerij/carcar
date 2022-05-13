@@ -28,17 +28,17 @@ class SalesList extends React.Component {
   render() {
     return (
       <React.Fragment>
-          <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">add new sale</Link>
-          </div>
       <div className="container">
           <h1>All Sales</h1>
+          <Link to="new">
+          <button type="button" className="btn btn-sm btn-outline-secondary">
+             add new sale
+          </button>
+          </Link>
           <table className="table table-striped">
           <thead>
               <tr>
-              <th>
-                  <Link to="history">Sales Person</Link>
-                  </th>
+              <th>Sales Person</th>
               <th>Employee Number</th>
               <th>Purchaser</th>
               <th>VIN</th>
