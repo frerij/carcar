@@ -47,7 +47,6 @@ class AppointmentForm extends React.Component {
     const response = await fetch(appointmentURL, fetchConfig);
     if (response.ok) {
       const newAppointment = await response.json();
-      //   console.log(newAppointment);
 
       const cleared = {
         owner_name: "",
@@ -134,10 +133,6 @@ class AppointmentForm extends React.Component {
                   className="form-control"
                 />
                 <label htmlFor="reason">Reason</label>
-              </div>
-              <div>
-                <input type="checkbox" id="is_vip" name="vip" />
-                <label for="is_vip">VIP Customer</label>
               </div>
               <button className="btn btn-primary">Create appointment</button>
             </form>

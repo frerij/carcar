@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-// add delete function for cancel button
 const cancelAppointment = async (id) => {
   const appointmentUrl = `http://localhost:8080/api/appointments/${id}`;
 
@@ -18,7 +17,6 @@ const cancelAppointment = async (id) => {
   window.location.reload();
 };
 
-// add finished function to update finished value
 const appointmentFinished = async (id) => {
   const appointmentUrl = `http://localhost:8080/api/appointments/${id}/`;
 
@@ -98,13 +96,7 @@ class AppointmentList extends Component {
               </tr>
             </thead>
             <tbody>
-              {/* function(this.state.appointments, this.state.sales)
-                    for appointment in this.state.appointments
-                        if appointment.vin in sales
-                            return is_vip = true */}
-
               {(this.state.appointments || []).map((appointment) => {
-                // parsing through date to show formatted correctly
                 let parsedDate = Date.parse(appointment.date);
                 const listDate = new Date(parsedDate);
 
@@ -112,7 +104,7 @@ class AppointmentList extends Component {
                 let isFinished = "";
 
                 if (appointment.is_vip === true) {
-                  isVip = "VIP";
+                  isVip = "table-info";
                 }
 
                 if (appointment.is_finished === true) {

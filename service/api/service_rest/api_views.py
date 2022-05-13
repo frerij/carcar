@@ -108,32 +108,16 @@ def api_appointment(request):
                 status = 400,
             )
 
-        vin_number = content["vin"]
-        if AutomobileVO.objects.filter(vin=vin_number).exists():
-            content["is_vip"] = True
-        else:
-            content["is_vip"] = False
-            print("Not VIP")
-
-        appointments = Appointment.objects.create(**content)
-        return JsonResponse(
-            appointments,
-            encoder = AppointmentEncoder,
-            safe=False,
-        )
-
 @require_http_methods(["DELETE", "PUT"])
 def api_detail_appointment(request, pk):
     if request.method == "DELETE":
         count, _ = Appointment.objects.filter(id=pk).delete()
-        print("appointment deleted")
         return JsonResponse({"deleted": count > 0})
 
     else:
         content = json.loads(request.body)
         Appointment.objects.filter(id=pk).update(**content)
         appointment = Appointment.objects.get(id=pk)
-        print("Appointment updated")
         return JsonResponse(
             appointment,
             encoder=AppointmentEncoder,
