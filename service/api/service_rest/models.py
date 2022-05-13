@@ -24,7 +24,7 @@ class Technician(models.Model):
 
 class Appointment(models.Model):
     owner_name = models.CharField(max_length=200)
-    vin = models.CharField(max_length=17, null=True, unique=True)
+    vin = models.CharField(max_length=17, null=True)
     date = models.DateTimeField(null=True)
     reason = models.TextField()
     is_vip = models.BooleanField(default=False)

@@ -17,14 +17,14 @@ class AppointmentHistoryList extends Component {
     this.setState(newState);
   }
 
-  async handleSearchSubmit(event) {
-    event.preventDefault();
-    const searchUrl = "http://localhost:3000/service/history";
-    const fetchConfig = {
-      method: "get",
-    };
-    const response = await fetch(searchUrl, fetchConfig);
-  }
+  //   async handleSearchSubmit(event) {
+  //     event.preventDefault();
+  //     const searchUrl = "http://localhost:3000/service/history";
+  //     const fetchConfig = {
+  //       method: "get",
+  //     };
+  //     const response = await fetch(searchUrl, fetchConfig);
+  //   }
 
   async componentDidMount() {
     const url = "http://localhost:8080/api/appointments/";
@@ -41,7 +41,7 @@ class AppointmentHistoryList extends Component {
       <>
         <div className="shadow p-4 mt-4">
           <h1>Vehicle Service History</h1>
-          <form onSubmit={this.handleSearchSubmit} id="vin-search-form">
+          <form id="vin-search-form">
             <div className="input-group">
               <input
                 value={this.state.search_key}
@@ -50,11 +50,7 @@ class AppointmentHistoryList extends Component {
                 className="form-control rounded"
                 placeholder="Enter vehicle identification number"
                 id="search_key"
-                aria-describedby="search-addon"
               />
-              <button type="button" className="btn btn-outline-primary">
-                search
-              </button>
             </div>
           </form>
         </div>

@@ -115,9 +115,9 @@ def api_appointment(request):
             content["is_vip"] = False
             print("Not VIP")
 
-        services = Appointment.objects.create(**content)
+        appointments = Appointment.objects.create(**content)
         return JsonResponse(
-            services,
+            appointments,
             encoder = AppointmentEncoder,
             safe=False,
         )
