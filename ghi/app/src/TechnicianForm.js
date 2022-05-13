@@ -10,8 +10,6 @@ class TechnicianForm extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    // this.handleChangeName = this.handleChangeName.bind(this);
-    // this.handleChangeNumber = this.handleChangeNumber.bind(this);
   }
 
   async handleSubmit(event) {

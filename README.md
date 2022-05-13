@@ -37,16 +37,11 @@ On each page that lists information (appointments/sales etc), there will also be
 
 Explain your models and integration with the inventory
 microservice, here.
-This microservice needs to:
-Create:
-- technicians
-- appointments
-Assign:
-- appointment statuses (cancelled or finished)
-- technicians to appointments
-Track:
-- appointments marked as finished
-To do this, I created models for Technician, Appointment, and AutomobileVO which gets information from the inventory microservice by polling.
+
+This microservice needs to create technicians and appointments, assign technicians to appointments and assign cancelled or finished statuses to appointments, and track appointments that are marked as finished.
+    
+
+To do this, I created models for Technician, Appointment, and AutomobileVO which gets information from the inventory microservice by polling. 
 
 ## Sales microservice
 
