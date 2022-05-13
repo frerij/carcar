@@ -24,13 +24,16 @@ class TechnicianList extends React.Component {
   render() {
     return (
       <>
-        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">
-            Add a Technician
-          </Link>
-        </div>
         <div className="container">
-          <h2>Technicians</h2>
+          <h1>Technicians</h1>
+          <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
+            <Link
+              to="new"
+              className="btn btn-outline-secondary btn-sm px-4 gap-3"
+            >
+              add technician
+            </Link>
+          </div>
           <div className="list">
             <table className="table table-striped">
               <thead>

@@ -11,7 +11,7 @@ class SalesForm extends React.Component {
             sold_cars: [],
             sales_price: '',
         };
-        // this.handleSoldCarsChange = this.handleSoldCarsChange.bind(this);
+        this.handleSoldCarsChange = this.handleSoldCarsChange.bind(this);
         this.handleAutomobileChange = this.handleAutomobileChange.bind(this);
         this.handleSalesPersonChange = this.handleSalesPersonChange.bind(this);
         this.handleCustomerChange = this.handleCustomerChange.bind(this);
@@ -57,10 +57,11 @@ class SalesForm extends React.Component {
           }
         }
 
-    // handleSoldCarsChange(event){
-    //   const value = event.target.value;
-    //   this.setState({sold_cars: value})
-    //   }
+    
+    handleSoldCarsChange(event){
+      const value = event.target.value;
+      this.setState({sales: value})
+      }
 
     handleAutomobileChange(event) {
       const value = event.target.value;
@@ -91,7 +92,6 @@ class SalesForm extends React.Component {
             const data = await response.json();
             
             this.setState({autos: data.autos});
-            console.log("this is the list of cars", this.state)
         }
     }
 
@@ -117,20 +117,20 @@ class SalesForm extends React.Component {
         }
     }
 
-    // async getSoldCars() {
-    //   const response = await fetch("http://localhost:8090/api/sales");
-    //   if(response.ok) {
-    //     const data = await response.json();
-    //     this.setState({sold_cars: data.sales})
-    //     console.log("this is the list of sold", this.state)
-    //   }
-    // }
+    async getSoldCars() {
+      const response = await fetch("http://localhost:8090/api/sales");
+      if(response.ok) {
+        const data = await response.json();
+        this.setState({sold_cars: data.sales})
+        console.log("this is the list of sold", this.state)
+      }
+    }
     
     async componentDidMount() {
         this.getAutomobileData()
         this.getSalesPersonData() 
         this.getCustomerData()
-        // this.getSoldCars()
+        this.getSoldCars()
     }
 
   render() {
@@ -145,26 +145,20 @@ class SalesForm extends React.Component {
               <div className="form-floating mb-3">
               <select onChange={this.handleAutomobileChange} value={this.state.auto} required id="auto" name="auto" className="form-select">
                   <option value="">Choose an Automobile</option>
-                  {this.state.autos.filter(auto => auto.sold === false).map(auto => {
+                  {/* function (this.state.autos, this.state.sold_cars)
+                        for auto in this.state.autos
+                          if auto in sold
+                              return auto ... */}
+                  {this.state.autos.map(auto => {
                     return (
                       <option key={auto.vin} value={auto.href}>
                             {auto.year}, {auto.color} {auto.model.name} 
                       </option>
                     );
                   })}
-                    
-                  
-                  {/* {Object.entries(combinedData).map(([sold, auto]) => {
-                    console.log("this is auto", auto)
-                    console.log("this is sold", sold)
-                    if (!(auto.vin in sold))
-                        <option key={auto.vin} value={auto.href}>
-                            {auto.year}, {auto.color} {auto.model.name} 
-                        </option>
-                    })} */}
-
                 </select>
               </div>
+              
               <div className="form-floating mb-3">
               <select onChange={this.handleSalesPersonChange} value={this.state.sales_person} required id="sales_person" name="sales_person" className="form-select">
                   <option value="">Choose a sales person</option>

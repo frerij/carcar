@@ -77,13 +77,16 @@ class AppointmentList extends Component {
   render() {
     return (
       <>
-        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">
-            Make a new appointment
-          </Link>
-        </div>
         <div className="container">
           <h1>Appointments</h1>
+          <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
+            <Link
+              to="new"
+              className="btn btn-outline-secondary btn-sm px-4 gap-3"
+            >
+              add appointment
+            </Link>
+          </div>
           <table className="table table-stripped">
             <thead>
               <tr>
@@ -134,7 +137,7 @@ class AppointmentList extends Component {
                     <td>{appointment.technician.tech_name}</td>
                     <td>
                       <button
-                        className="btn btn-outline-danger"
+                        className="btn btn-sm btn-outline-danger"
                         onClick={() => cancelAppointment(appointment.id)}
                       >
                         Cancel
@@ -142,7 +145,7 @@ class AppointmentList extends Component {
                     </td>
                     <td>
                       <button
-                        className="btn btn-outline-success"
+                        className="btn btn-sm btn-outline-success"
                         onClick={() => appointmentFinished(appointment.id)}
                       >
                         Finished
