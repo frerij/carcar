@@ -108,6 +108,7 @@ def api_appointment(request):
                 status = 400,
             )
 
+
 @require_http_methods(["DELETE", "PUT"])
 def api_detail_appointment(request, pk):
     if request.method == "DELETE":

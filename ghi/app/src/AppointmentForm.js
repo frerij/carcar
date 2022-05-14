@@ -57,7 +57,7 @@ class AppointmentForm extends React.Component {
       };
       this.setState(cleared);
     }
-    window.location.reload();
+    // window.location.reload();
   }
 
   render() {

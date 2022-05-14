@@ -63,7 +63,6 @@ class AppointmentList extends Component {
       this.setState({
         sales: data.sales,
       });
-      console.log("sales data:", data.sales);
     } else {
       console.error(response);
     }
@@ -76,7 +75,6 @@ class AppointmentList extends Component {
 
   render() {
     const list_of_sold = [];
-    console.log("state: ", this.state.sales);
     this.state.sales.map((automobiles) =>
       list_of_sold.push(automobiles.automobile.vin)
     );
@@ -104,6 +102,7 @@ class AppointmentList extends Component {
               </tr>
             </thead>
             <tbody>
+              {/* lines 108-157 render the appointments of VIP cars that were purchased from our inventory */}
               {(this.state.appointments || [])
                 .filter((appointment) => list_of_sold.includes(appointment.vin))
                 .map((appointment) => {
@@ -155,6 +154,7 @@ class AppointmentList extends Component {
                     </tr>
                   );
                 })}
+              {/* lines 159-212 render the appointments for cars that were not sold from our inventory */}
               {(this.state.appointments || [])
                 .filter(
                   (appointment) => !list_of_sold.includes(appointment.vin)
