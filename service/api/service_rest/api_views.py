@@ -92,16 +92,25 @@ def api_detail_technician(request, pk):
 def api_appointment(request):
     if request.method == "GET":
         appointments = Appointment.objects.all()
+        # print("APPOINTMENTS: ", appointments)
         return JsonResponse(
             {"appointment": appointments},
             encoder=AppointmentEncoder,
         )
+        
     else:
         content = json.loads(request.body)
         try:
             tech_number = content["technician"]
             technician = Technician.objects.get(tech_num=tech_number)
             content["technician"] = technician 
+            
+            appointment = Appointment.objects.create(**content)
+            return JsonResponse(
+                appointment,
+                encoder=AppointmentEncoder,
+                safe=False,
+            )
         except Technician.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid employee id"},
