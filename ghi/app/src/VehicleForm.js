@@ -48,7 +48,6 @@ class VehicleForm extends Component {
         picture_url: "",
         manufacturers: [],
       });
-      console.log("Vehicle created");
     } else {
       console.log("Vehicle not created");
     }

@@ -29,7 +29,6 @@ class ManufacturerForm extends Component {
       this.setState({
         name: "",
       });
-      console.log("Manufacturer created");
     } else {
       console.log("Manufacturer not created");
     }

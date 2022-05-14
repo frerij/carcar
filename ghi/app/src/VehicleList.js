@@ -16,9 +16,6 @@ class VehicleList extends React.Component {
         this.setState({
           models: data.models,
         });
-
-        console.log(data);
-        
       } else {
         console.error(response);
       }

@@ -99,7 +99,7 @@ def api_sales(request):
     else:
         try:
             content = json.loads(request.body)
-            
+            print(content)
             try:
                 auto_href = content["automobile"]
                 automobile = AutomobileVO.objects.get(import_href=auto_href)
@@ -108,11 +108,11 @@ def api_sales(request):
                 customer_phone = content["customer"]
                 customer = Customer.objects.get(phone_number=customer_phone)
                 content["customer"] = customer
-                
+
                 sale_person_id = content["sales_person"]
                 salesPerson = SalesPerson.objects.get(employee_number=sale_person_id)
                 content["sales_person"] = salesPerson
-                
+
             except:
                 return JsonResponse(
                 {"message": "Invalid request"},

@@ -37,7 +37,6 @@ class SalesForm extends React.Component {
         };
         
         const response = await fetch(salesUrl, fetchConfig);
-        console.log(response);
         
         if (response.ok) {
             const newSale = await response.json();
@@ -122,7 +121,6 @@ class SalesForm extends React.Component {
       if(response.ok) {
         const data = await response.json();
         this.setState({sold_cars: data.sales})
-        console.log("this is the list of sold", this.state)
       }
     }
     

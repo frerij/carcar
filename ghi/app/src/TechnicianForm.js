@@ -31,7 +31,6 @@ class TechnicianForm extends Component {
         tech_name: "",
         tech_num: "",
       });
-      console.log("Technician created");
     } else {
       console.log("Technician not created");
     }
@@ -40,7 +39,6 @@ class TechnicianForm extends Component {
   handleChange(event) {
     const newState = {};
     newState[event.target.id] = event.target.value;
-    console.log(event);
     this.setState(newState);
   }
 
