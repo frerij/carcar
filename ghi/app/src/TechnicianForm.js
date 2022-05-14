@@ -31,7 +31,6 @@ class TechnicianForm extends Component {
         tech_name: "",
         tech_num: "",
       });
-      console.log("Technician created");
     } else {
       console.log("Technician not created");
     }

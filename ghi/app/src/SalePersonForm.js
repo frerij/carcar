@@ -40,7 +40,6 @@ class SalePersonForm extends Component {
   handleChange(event) {
     const newState = {};
     newState[event.target.id] = event.target.value;
-    console.log(event);
     this.setState(newState);
   }
 

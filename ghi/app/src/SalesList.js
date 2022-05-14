@@ -15,10 +15,7 @@ class SalesList extends React.Component {
         const data = await response.json();
         this.setState({
           sales: data.sales,
-        });
-
-        console.log(data);
-        
+        }); 
       } else {
         console.error(response);
       }
